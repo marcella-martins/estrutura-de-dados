@@ -13,4 +13,5 @@ int main(void) {
         }
     }
     printf("%d\n", quebrados);
+    return 0;
 }

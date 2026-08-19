@@ -23,4 +23,5 @@ int main(void) {
         scanf("%d", &depositos);
         printf("\n");
     }
+    return 0;
 }
