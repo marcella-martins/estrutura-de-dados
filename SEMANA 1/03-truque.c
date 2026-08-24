@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 
 int main(void) {
@@ -8,6 +9,11 @@ int main(void) {
     for (int i = 0; i < n; i ++) {
         scanf("%d", &S[i]);
     }
+
+    int m = ceil(sqrt(n));
+    int M[m];
+    for (int k = 0, indiceS = 0, inteiro = 1; i < m; k ++, inteiro ++)
+
     int letra;
     int primeiro;
     int segundo;
