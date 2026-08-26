@@ -28,12 +28,12 @@ int main(void) {
         if (letra == 's') {
             int soma = 0;
             int f = primeiro;
-            int s = segundo;
+            int second = segundo;
             int inicio = f / m;
-            int fim = s / m;
+            int fim = second / m;
             if (inicio == fim) {
                 // Se estão no mesmo bloco, só vou somar tudo
-                for (int a = f; a <= s; a ++) {
+                for (int a = f; a <= second; a ++) {
                     soma += S[a];
                 }
             }
@@ -51,14 +51,17 @@ int main(void) {
                 // Calcula onde começa o último bloco
                 int inicio_final = fim * m;
                 // Vai calcular dentro do mesmo bloco a parte que quer
-                for (int c = inicio_final; c <= s; c ++) {
+                for (int c = inicio_final; c <= second; c ++) {
                     soma += S[c];
                 }
             }
-        }
             printf("%d\n", soma);
-
+        }
         if (letra == 'a') {
+            // Descobre o bloco onde o índice está
+            int bloco = primeiro / m;
+            // Atualiza a soma daquele bloco, que foi modificada com a mudança
+            M[bloco] = M[bloco] - S[primeiro] + segundo;
             S[primeiro] = segundo;
         }
     }
