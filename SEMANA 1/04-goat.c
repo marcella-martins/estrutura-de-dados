@@ -27,6 +27,24 @@ int main(void) {
             palavras[palavra][letra] = '\0'
             palavra ++;
         }
+        for (int j = 0; j < palavra; j ++) {
+            // Procura se a primeira letra é vogal
+            if (strchr("aeiouAEIOU", palavras[j][0]) != NULL) {
+                strcat(palavras[j], "ma");
+            }
+            // Caso não seja, ela cria uma cópia da palavra sem contar a primeira letra, adiciona ela no fim
+            else {
+                char copia[100];
+                strcpy(copia, palavras[j] + 1);
+                char primeira[2] = {palavras[j][0], '\0'};
+                strcat(copia, primeira);
+                strcat(copia, "ma");
+                strcpy(palavras[j], copia);
+            }
+            // Adiciona o sufixo de acordo com a regra
+            int tamanho = strlen(palavras[j]);
+            strcat(palavras[j], 'a' * tamanho);
+        }
     }
     return 0;
 }
