@@ -7,10 +7,10 @@ int main(void) {
     char linha[10500];
     // Começa a ler até o fim da linha
     while (scanf(" %[^\n]", linha) == 1) {
-        char validas[1000][300];
+        char validas[1000][10000];
         int soma = 0;
         int total_validas = 0;
-        char palavra[200];
+        char palavra[10000];
         int letra = 0;
         // Passa caractere por caractere
         for (int i = 0; ; i ++) {
@@ -22,7 +22,7 @@ int main(void) {
             else if (letra > 0) {
                 // Se é espaço vazio fecha a string da palavra anterior
                 palavra[letra] = '\0';
-                char palavra_modificada[200];
+                char palavra_modificada[10000];
                 int indice_modificada = 0;
                 int atual = 0;
                 int tem_numero = 0;
@@ -52,7 +52,7 @@ int main(void) {
                 palavra_modificada[indice_modificada] = '\0';
                 if (indice_modificada > 0) {
                     int tamanho = indice_modificada;
-                    char modificado[300];
+                    char modificado[10000];
                     modificado[0] = '\0';
                     // Confere se é vogal
                     if (strchr("aeiouAEIOU", palavra_modificada[0]) != NULL) {
