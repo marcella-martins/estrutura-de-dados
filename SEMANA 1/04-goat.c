@@ -1,50 +1,97 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 
 int main(void) {
-    char linha[300000];
+    char linha[10500];
+    // Começa a ler até o fim da linha
     while (scanf(" %[^\n]", linha) == 1) {
-        char palavras[200000][100];
-        int palavra = 0;
+        char validas[1000][300];
+        int soma = 0;
+        int total_validas = 0;
+        char palavra[200];
         int letra = 0;
-        // Percorre toda a frase dividindo as palavras
-        for (int i = 0; linha[i] != '\0'; i ++) {
-            // Percorre a palavra enquanto não acaba
-            if (linha[i] != ' ') {
-                palavras[palavra][letra] = linha[i];
+        // Passa caractere por caractere
+        for (int i = 0; ; i ++) {
+            // Se não for fim de linha nem espaço, é armazenado
+            if (linha[i] != ' ' && linha[i] != '\0') {
+                palavra[letra] = linha[i];
                 letra ++;
             }
-            // Se achou espaço acabou a palavra
-            else {
-                palavras[palavra][letra] = '\0';
-                palavra ++;
+            else if (letra > 0) {
+                // Se é espaço vazio fecha a string da palavra anterior
+                palavra[letra] = '\0';
+                char palavra_modificada[200];
+                int indice_modificada = 0;
+                int atual = 0;
+                int tem_numero = 0;
+                // Filtra os números e símbolos, enquanto soma os caracteres numéricos
+                for (int j = 0; palavra[j] != '\0'; j ++) {
+                    if (isdigit(palavra[j])) {
+                        atual = atual * 10 + (palavra[j] - '0');
+                        tem_numero = 1;
+                    }
+                    else {
+                        // Se era um número lido vai somar no total
+                        if (tem_numero) {
+                            soma += atual;
+                            atual = 0;
+                            tem_numero = 0;
+                        }
+                        // Se era uma letra é adicionado a uma "cópia" da palavra
+                        if (isalpha(palavra[j])) {
+                            palavra_modificada[indice_modificada ++] = palavra[j];
+                        }
+                    }
+                }
+                // Se o número tá no fim
+                if (tem_numero) {
+                    soma += atual;
+                }
+                palavra_modificada[indice_modificada] = '\0';
+                if (indice_modificada > 0) {
+                    int tamanho = indice_modificada;
+                    char modificado[300];
+                    modificado[0] = '\0';
+                    // Confere se é vogal
+                    if (strchr("aeiouAEIOU", palavra_modificada[0]) != NULL) {
+                        strcpy(modificado, palavra_modificada);
+                    }
+                    // Se consoante muda a primeira letra pro fim
+                    else {
+                        strcpy(modificado, palavra_modificada + 1);
+                        char primeira[2] = {palavra_modificada[0], '\0'};
+                        strcat(modificado, primeira);
+                    }
+                    strcat(modificado, "ma");
+                    // Adiciona a repetido do tamanho de vezes
+                    int tamanho_atual = strlen(modificado);
+                    for (int k = 0; k < tamanho; k ++) {
+                        modificado[tamanho_atual ++] = 'a';
+                    }
+                    modificado[tamanho_atual] = '\0';
+                    // Salva nas palavras modificadas
+                    strcpy(validas[total_validas ++], modificado);
+                }
+                // Reseta pra ler a próxima
                 letra = 0;
             }
-        }
-        // Contabiliza a última palavra considerando seu fim
-        if (letra > 0) {
-            palavras[palavra][letra] = '\0'
-            palavra ++;
-        }
-        for (int j = 0; j < palavra; j ++) {
-            // Procura se a primeira letra é vogal
-            if (strchr("aeiouAEIOU", palavras[j][0]) != NULL) {
-                strcat(palavras[j], "ma");
+            // Se fim encerra o loop
+            if (linha[i] == '\0') {
+                break;
             }
-            // Caso não seja, ela cria uma cópia da palavra sem contar a primeira letra, adiciona ela no fim
-            else {
-                char copia[100];
-                strcpy(copia, palavras[j] + 1);
-                char primeira[2] = {palavras[j][0], '\0'};
-                strcat(copia, primeira);
-                strcat(copia, "ma");
-                strcpy(palavras[j], copia);
-            }
-            // Adiciona o sufixo de acordo com a regra
-            int tamanho = strlen(palavras[j]);
-            strcat(palavras[j], 'a' * tamanho);
         }
+        if (soma == 1) {
+            printf("1 goat says:");
+        }
+        else {
+            printf("%d goats say:", soma);
+        }
+        for (int m = 0; m < total_validas; m ++) {
+            printf(" %s", validas[m]);
+        }
+        printf("\n");
     }
     return 0;
 }
