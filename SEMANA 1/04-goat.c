@@ -1,16 +1,22 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 int main(void) {
-    char linha[10500];
+    char *linha = (char *)malloc(1000000 * sizeof(char));
+    char *palavra = (char *)malloc(1000000 * sizeof(char));
+    char *palavra_modificada = (char *)malloc(1000000 * sizeof(char));
+    if (!linha || !palavra || !palavra_modificada) {
+        return 1;
+    }
     // Começa a ler até o fim da linha
     while (scanf(" %[^\n]", linha) == 1) {
         int soma = 0;
         int atual = 0;
         int tem_numero = 0;
         // Calcula a soma total dos números da linha
-        for (int i = 0; linha[i] != '\0'; i++) {
+        for (int i = 0; linha[i] != '\0'; i ++) {
             if (isdigit(linha[i])) {
                 atual = atual * 10 + (linha[i] - '0');
                 tem_numero = 1;
@@ -32,51 +38,42 @@ int main(void) {
             printf("%d goats say:", soma);
         }
         // Processa e imprime cada palavra
-        char palavra[2000];
         int letra = 0;
         // Passa caractere por caractere da linha
-        for (int i = 0; ; i++) {
+        for (int i = 0; ; i ++) {
             // Se não for fim de linha nem espaço é armazenado
             if (linha[i] != ' ' && linha[i] != '\0') {
                 palavra[letra] = linha[i];
-                letra++;
+                letra ++;
             }
             else if (letra > 0) {
                 // Se é espaço vazio fecha a string da anterior
                 palavra[letra] = '\0';
-                char palavra_modificada[2000];
                 int indice_modificada = 0;
                 // Mantém apenas as letras da palavra
-                for (int j = 0; palavra[j] != '\0'; j++) {
+                for (int j = 0; palavra[j] != '\0'; j ++) {
                     if (isalpha(palavra[j])) {
-                        palavra_modificada[indice_modificada++] = palavra[j];
+                        palavra_modificada[indice_modificada ++] = palavra[j];
                     }
                 }
                 palavra_modificada[indice_modificada] = '\0';
                 if (indice_modificada > 0) {
                     int tamanho = indice_modificada;
-                    char modificado[4000];
-                    modificado[0] = '\0';
+                    printf(" ");
                     // Confere se começa com vogal
                     if (strchr("aeiouAEIOU", palavra_modificada[0]) != NULL) {
-                        strcpy(modificado, palavra_modificada);
+                        printf("%s", palavra_modificada);
                     }
-                    // Se consoante move a primeira letra para o fim
+                    // Imprime a palavra com a letra no fim
                     else {
-                        strcpy(modificado, palavra_modificada + 1);
-                        char primeira[2] = {palavra_modificada[0], '\0'};
-                        strcat(modificado, primeira);
+                        printf("%s%c", palavra_modificada + 1, palavra_modificada[0]);
                     }
-                    // Adiciona o sufixo "ma"
-                    strcat(modificado, "ma");
-                    // Adiciona 'a' repetido com base no tamanho original
-                    int tamanho_atual = strlen(modificado);
-                    for (int k = 0; k < tamanho; k++) {
-                        modificado[tamanho_atual++] = 'a';
+                    // Imprime o sufixo "ma"
+                    printf("ma");
+                    // Imprime 'a' repetido com base no tamanho original
+                    for (int k = 0; k < tamanho; k ++) {
+                        printf("a");
                     }
-                    modificado[tamanho_atual] = '\0';
-                    // Imprime a palavra modificada
-                    printf(" %s", modificado);
                 }
                 // Reseta pra ler a próxima palavra
                 letra = 0;
@@ -88,5 +85,8 @@ int main(void) {
         }
         printf("\n");
     }
+    free(linha);
+    free(palavra);
+    free(palavra_modificada);
     return 0;
 }
