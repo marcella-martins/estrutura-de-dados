@@ -7,7 +7,7 @@ int main(void) {
     char linha[10500];
     // Começa a ler até o fim da linha
     while (scanf(" %[^\n]", linha) == 1) {
-        char validas[1000][10000];
+        static char validas[1000][10000];
         int soma = 0;
         int total_validas = 0;
         char palavra[10000];
