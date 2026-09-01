@@ -14,7 +14,7 @@ int main(void) {
     int total_contatos = 0;
     char nome_busca[68];
     Contato *agenda = (Contato *)malloc(1000*sizeof(Contato));
-    while (scanf(" %c", &letra) ==1 && letra != 'f') {
+    while (scanf(" %c", &letra) == 1 && letra != 'f') {
         if (letra == 'i') {
             // Usar algoritmo de inserção
             scanf(" %51[^\n]", agenda[total_contatos].nome);
@@ -48,7 +48,7 @@ int main(void) {
             printf("Listagem:\n");
             if (total_contatos != 0) {
                 for (int i = 0; i < total_contatos; i ++) {
-                    printf("(%d) %s  %s   %s %s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
+                    printf("(%d) %s\t%s\t%s\t%s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
                 }
             }
             else {
@@ -64,14 +64,13 @@ int main(void) {
             for (int i = 0; i < total_contatos; i ++) {
                 if (strstr(agenda[i].nome, nome_busca) != NULL) {
                     // Conferir se está na listagem
-                    printf("(%d) %s  %s   %s %s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
+                    printf("(%d) %s	%s	%s	%s\n\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
                     existe ++;
                 }
             }
             if (existe == 0) {
-                printf("Nenhum contato.\n");
+                printf("Nenhum contato.\n\n");
             }
-            printf("\n");
         }
     }
     free(agenda);
