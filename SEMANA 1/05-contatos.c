@@ -17,17 +17,17 @@ int main(void) {
     while (scanf(" %c", &letra) ==1 && letra != 'f') {
         if (letra == 'i') {
             // Usar algoritmo de inserção
-            scanf(" %[^\n]", agenda[total_contatos].nome);
-            scanf(" %[^\n]", agenda[total_contatos].endereco);
-            scanf(" %[^\n]", agenda[total_contatos].telefone);
-            scanf(" %[^\n]", agenda[total_contatos].aniversario);
-            printf("Contato para %s inserido.\n", agenda[total_contatos].nome);
+            scanf(" %51[^\n]", agenda[total_contatos].nome);
+            scanf(" %101[^\n]", agenda[total_contatos].endereco);
+            scanf(" %16[^\n]", agenda[total_contatos].telefone);
+            scanf(" %9[^\n]", agenda[total_contatos].aniversario);
+            printf("Contato para %s inserido.\n\n", agenda[total_contatos].nome);
             total_contatos ++;
         }
         else if (letra == 'r') {
             // Usar algoritmo de remoção
             int quantidade = 0;
-            scanf(" %[^\n]", nome_busca);
+            scanf(" %51[^\n]", nome_busca);
             int i = 0;
             while (i < total_contatos) {
                 if (strcmp(agenda[i].nome, nome_busca) == 0) {
@@ -41,37 +41,38 @@ int main(void) {
                     i ++;
                 }
             }
-            printf("Contatos de %s removidos: %d.\n", nome_busca, quantidade);
+            printf("Contatos de %s removidos: %d.\n\n", nome_busca, quantidade);
         }
         else if (letra == 'p') {
             // Usar algoritmo de impressão
             printf("Listagem:\n");
             if (total_contatos != 0) {
                 for (int i = 0; i < total_contatos; i ++) {
-                    printf("(%d) %s\t%s\t%s\t%s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
+                    printf("(%d) %s  %s   %s %s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
                 }
             }
             else {
                 printf("Nenhum contato.\n");
             }
+            printf("\n");
         }
         else if (letra == 'b') {
             // Usar algoritmo de busca
             int existe = 0;
-            scanf(" %[^\n]", nome_busca);
+            scanf(" %51[^\n]", nome_busca);
             printf("Resultado da busca:\n");
             for (int i = 0; i < total_contatos; i ++) {
                 if (strstr(agenda[i].nome, nome_busca) != NULL) {
                     // Conferir se está na listagem
-                    printf("(%d) %s\t%s\t%s\t%s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
+                    printf("(%d) %s  %s   %s %s\n", i + 1, agenda[i].nome, agenda[i].endereco, agenda[i].telefone, agenda[i].aniversario);
                     existe ++;
                 }
             }
             if (existe == 0) {
                 printf("Nenhum contato.\n");
             }
+            printf("\n");
         }
-        printf("\n");
     }
     free(agenda);
     return 0;
