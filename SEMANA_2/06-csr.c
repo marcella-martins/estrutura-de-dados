@@ -33,13 +33,12 @@ int main(void) {
     }
     // Ordena os Elementos de vc por linha, depois coluna
     qsort(vc, (size_t) n, sizeof(Elemento), comparar);
-    int numero_linhas = maximo_linha + 1;
     // Aloca o segundo vetor, com as posições zeradas
     int *ia = calloc((size_t) (maximo_linha + 2), sizeof(int));
     int posicao = 0;
     // Conta por linha quantos elementos tem antes
     for (int li = 0; li < maximo_linha + 1; li ++) {
-        ia[li] = posicao
+        ia[li] = posicao;
         while (posicao < n && vc[posicao].linha == li) {
             posicao ++;
         }
@@ -63,7 +62,7 @@ int main(void) {
                 }
             }
         }
-        print("(%d,%d) = %d\n", l, c, v);
+        printf("(%d,%d) = %d\n", l, c, v);
     }
     free(vc);
     free(ia);
