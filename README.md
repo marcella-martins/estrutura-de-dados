@@ -6,7 +6,6 @@ MC202 na Unicamp (Engenharia de Computação, 2° semestre).
 
 ## Conteúdo
 
-|-------|-----------|
 | `SEMANA_1` | Exercícios iniciais focados em linguagem C |
 | `SEMANA_2` | Pilha e fila implementadas com vetor e com lista |
 | `SEMANA_3` | Ordenação e desordenação com lista e comparação de cadeias |
